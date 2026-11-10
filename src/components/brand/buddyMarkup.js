@@ -1,0 +1,32 @@
+/**
+ * The Sep Buddy mascot — a little map pin in a graduation cap — as SVG markup in a
+ * 1024×1024 space. Used by the loading screen (react-native-svg) and by
+ * scripts/make-icons.js to draw the app icon and splash image, so they always match.
+ * Keep it as one template literal: the icon script reads the text between the backticks.
+ */
+const BUDDY = `
+<defs>
+  <linearGradient id="pinFill" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffffff"/>
+    <stop offset="1" stop-color="#d9eeff"/>
+  </linearGradient>
+</defs>
+<path d="M512 834 C 438 732, 268 610, 268 440 A 244 244 0 1 1 756 440 C 756 610, 586 732, 512 834 Z" fill="#1a74b8" opacity="0.16" transform="translate(0 16)"/>
+<path d="M512 820 C 440 720, 282 600, 282 430 A 230 230 0 1 1 742 430 C 742 600, 584 720, 512 820 Z" fill="url(#pinFill)"/>
+<ellipse cx="440" cy="425" rx="27" ry="35" fill="#0f2a3f"/>
+<ellipse cx="584" cy="425" rx="27" ry="35" fill="#0f2a3f"/>
+<circle cx="449" cy="411" r="10" fill="#ffffff"/>
+<circle cx="593" cy="411" r="10" fill="#ffffff"/>
+<ellipse cx="392" cy="488" rx="36" ry="21" fill="#ffadc4" opacity="0.85"/>
+<ellipse cx="632" cy="488" rx="36" ry="21" fill="#ffadc4" opacity="0.85"/>
+<path d="M480 480 Q512 514 544 480" stroke="#0f2a3f" stroke-width="14" stroke-linecap="round" fill="none"/>
+<g transform="rotate(-8 512 220)">
+  <path d="M404 222 L404 282 Q512 320 620 282 L620 222 Q512 252 404 222 Z" fill="#24486a"/>
+  <polygon points="512,140 692,200 512,260 332,200" fill="#0f2a3f"/>
+  <path d="M512 200 Q630 206 664 224 L664 300" stroke="#ffc94d" stroke-width="11" stroke-linecap="round" fill="none"/>
+  <rect x="651" y="294" width="26" height="42" rx="9" fill="#ffc94d"/>
+  <circle cx="512" cy="200" r="13" fill="#ffc94d"/>
+</g>
+`;
+
+export default BUDDY;
