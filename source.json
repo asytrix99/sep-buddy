@@ -1,0 +1,44 @@
+{
+  "name": "Sep Buddy",
+  "identifier": "com.asytrix99.sepbuddy.source",
+  "subtitle": "Student life in Ryd, Linköping",
+  "sourceURL": "https://raw.githubusercontent.com/asytrix99/sep-buddy/main/source.json",
+  "iconURL": "https://raw.githubusercontent.com/asytrix99/sep-buddy/main/assets/icon.png",
+  "tintColor": "#1a74b8",
+  "apps": [
+    {
+      "name": "Sep Buddy",
+      "bundleIdentifier": "com.asytrix99.sepbuddy",
+      "developerName": "asytrix99",
+      "subtitle": "Map, buses, events, money and study for a term in Linköping",
+      "localizedDescription": "All-in-one student app for a spring term in Ryd, Linköping: places near home, bus times to Campus Valla, a student and city events calendar with notifications, expense tracking, a study planner with a focus tree, and more.",
+      "iconURL": "https://raw.githubusercontent.com/asytrix99/sep-buddy/main/assets/icon.png",
+      "tintColor": "#1a74b8",
+      "category": "lifestyle",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "buildVersion": "1",
+          "date": "2026-11-10",
+          "size": 13587256,
+          "downloadURL": "https://github.com/asytrix99/sep-buddy/releases/download/v1.0.0/sep-buddy.ipa",
+          "localizedDescription": "First release",
+          "minOSVersion": "16.4"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {
+          "NSLocationWhenInUseUsageDescription": "Shows where you are on the map and finds food nearby.",
+          "NSFaceIDUsageDescription": "Allow the app to lock your cycle data with Face ID."
+        }
+      },
+      "version": "1.0.0",
+      "versionDate": "2026-11-10",
+      "versionDescription": "First release",
+      "downloadURL": "https://github.com/asytrix99/sep-buddy/releases/download/v1.0.0/sep-buddy.ipa",
+      "size": 13587256
+    }
+  ],
+  "news": []
+}
