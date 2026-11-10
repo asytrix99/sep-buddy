@@ -1,0 +1,78 @@
+{
+ "_help": "Add events by hand here (e.g. from M-sektionen / FR Ryd / Herrgården Instagram). source: liu | lintek | msek | frryd | hg | city | other. start/end: local Swedish time 'YYYY-MM-DDTHH:MM'. location is turned into map coordinates automatically. Copy the example object, fill it in, and delete events once they're over (old ones are ignored anyway).",
+ "example": {
+  "source": "msek",
+  "title": "M-sektionen pub night",
+  "start": "2026-11-20T18:00",
+  "end": "2026-11-20T23:00",
+  "location": "Kårallen, Linköping",
+  "url": "https://www.instagram.com/",
+  "description": "Example only — not a real event"
+ },
+ "events": [
+  {
+   "source": "liu",
+   "title": "🌱 Spring term starts",
+   "start": "2027-01-15T00:00",
+   "end": "2027-01-15T23:59",
+   "allDay": true,
+   "url": "https://liu.se/artikel/terminstider",
+   "description": "Spring term runs 15 Jan – 6 Jun 2027. Remember to register on your courses in the LiU app / Studentportalen."
+  },
+  {
+   "source": "lintek",
+   "title": "💼 LARM career fair",
+   "start": "2027-02-16T09:00",
+   "end": "2027-02-16T16:00",
+   "allDay": false,
+   "location": "Campus Valla, Linköping",
+   "url": "https://larm.lintek.liu.se",
+   "description": "LinTek's big career fair — companies, internships and thesis jobs. Bring a CV."
+  },
+  {
+   "source": "liu",
+   "title": "📝 Register for March exams",
+   "start": "2027-03-01T00:00",
+   "end": "2027-03-01T23:59",
+   "allDay": true,
+   "url": "https://liu.se/student/dagens-tentor",
+   "description": "Exams start 18 Mar and registration closes 10 calendar days before each exam (around 8 Mar). Register in the LiU app / Lisam."
+  },
+  {
+   "source": "liu",
+   "title": "📝 Exam period vt1",
+   "start": "2027-03-18T00:00",
+   "end": "2027-03-25T23:59",
+   "allDay": true,
+   "url": "https://liu.se/organisation/liu/lith/terminstider-for-tekniska-hogskolan",
+   "description": "Tekniska fakulteten: tentamensperiod vt1: 18–19 and 22–25 Mar."
+  },
+  {
+   "source": "liu",
+   "title": "📝 Register for May–June exams",
+   "start": "2027-05-14T00:00",
+   "end": "2027-05-14T23:59",
+   "allDay": true,
+   "url": "https://liu.se/student/dagens-tentor",
+   "description": "Exam period vt2 is 31 May–4 Jun; registration closes 10 calendar days before each exam."
+  },
+  {
+   "source": "liu",
+   "title": "📝 Exam period vt2",
+   "start": "2027-05-31T00:00",
+   "end": "2027-06-04T23:59",
+   "allDay": true,
+   "url": "https://liu.se/organisation/liu/lith/terminstider-for-tekniska-hogskolan",
+   "description": "Tekniska fakulteten: tentamensperiod vt2."
+  },
+  {
+   "source": "liu",
+   "title": "🎓 Spring term ends",
+   "start": "2027-06-06T00:00",
+   "end": "2027-06-06T23:59",
+   "allDay": true,
+   "url": "https://liu.se/artikel/terminstider",
+   "description": "Last day of the spring term (15 Jan – 6 Jun 2027). Summer break! ☀️"
+  }
+ ]
+}

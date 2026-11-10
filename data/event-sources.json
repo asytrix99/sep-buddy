@@ -1,0 +1,51 @@
+{
+ "_help": "Feeds the collector tries every morning. type = ical | wp-tribe | jsonld | ticketmaster | studentlivet. A feed that fails is just skipped and shows as ok:false in events.json → sources. Set enabled:false to turn one off. source must be one of: liu, lintek, msek, frryd, hg, karhus, intl, city, other.",
+ "window": {
+  "from": "2027-01-15",
+  "to": "2027-06-06",
+  "note": "Only events overlapping this range go into events.json (her stay in Linköping). Remove to collect everything."
+ },
+ "feeds": [
+  {
+   "source": "other",
+   "type": "studentlivet",
+   "url": "https://studentlivet.se/events/",
+   "note": "Linköping student events from Orbi: Ryds Herrgård, Kårallen, Kollektivet, LinTek, sections, ISA/ESN, clubs. Each event gets its own source from the organiser; Norrköping events are skipped."
+  },
+  {
+   "source": "lintek",
+   "type": "wp-tribe",
+   "url": "https://lintek.liu.se/wp-json/tribe/events/v1/events?per_page=50",
+   "note": "Checked 2026-11-10: LinTek's new site has no events section or feed (404). LinTek posts events on Instagram — add them to events-manual.json.",
+   "enabled": false
+  },
+  {
+   "source": "lintek",
+   "type": "ical",
+   "url": "https://lintek.liu.se/events/?ical=1",
+   "enabled": false,
+   "note": "Checked 2026-11-10: LinTek's new site has no events section or feed (404). LinTek posts events on Instagram — add them to events-manual.json."
+  },
+  {
+   "source": "frryd",
+   "type": "ical",
+   "url": "https://www.frryd.se/events/?ical=1",
+   "note": "Checked 2026-11-10: frryd.se is down (HTTP 502) and /events/ returned 404. Re-enable if they publish a calendar.",
+   "enabled": false
+  },
+  {
+   "source": "liu",
+   "type": "jsonld",
+   "url": "https://liu.se/en/calendar",
+   "note": "Checked 2026-11-10: liu.se/en/calendar returns 404; LiU has no public events feed.",
+   "enabled": false
+  },
+  {
+   "source": "city",
+   "type": "ticketmaster",
+   "latlong": "58.4108,15.6214",
+   "radiusKm": 20,
+   "note": "Concerts, shows and sport around Linköping (Saab Arena, Konsert & Kongress, …). Needs a free key in the TICKETMASTER_API_KEY env var / GitHub secret."
+  }
+ ]
+}
