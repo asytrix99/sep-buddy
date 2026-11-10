@@ -19,6 +19,28 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "scheme": "rydmap",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-notifications",
+        {}
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow the app to lock your cycle data with Face ID."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Shows where you are on the map and finds food nearby."
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-background-task"
+    ]
   }
 }
