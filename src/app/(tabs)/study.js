@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
-import { ScreenHeader, Card, Btn, IconBtn, SectionTitle, Empty, C } from '../../components/ui';
+import { ScreenHeader, Card, Btn, IconBtn, SectionTitle, Empty, C, Fab, useTabBarSpace } from '../../components/ui';
 import FocusTimer from '../../components/study/FocusTimer';
 import { SemesterCard } from '../../components/study/Semester';
 import { TaskSheet, CourseSheet, TimetableSheet } from '../../components/study/StudySheets';
@@ -14,6 +14,7 @@ import { parseIcs } from '../../lib/ical';
 import { fmtDay, fmtTime, ymd, relDays } from '../../lib/dates';
 
 export default function StudyScreen() {
+  const space = useTabBarSpace();
   const [courses, setCourses] = usePersisted(KEYS.courses, STARTER_COURSES);
   const [tasks, setTasks] = usePersisted(KEYS.tasks, []);
   const [ttUrl, setTtUrl] = usePersisted(KEYS.timetableUrl, '');
@@ -59,7 +60,7 @@ export default function StudyScreen() {
     <View style={{ flex: 1, backgroundColor: C.bg }}>
       <ScreenHeader title="Study" subtitle={open.length ? `${open.length} open task${open.length > 1 ? 's' : ''}` : 'All caught up'}
         right={<IconBtn label="🗓️" onPress={() => setShowTt(true)} />} />
-      <ScrollView contentContainerStyle={{ paddingBottom: 90 }}
+      <ScrollView contentContainerStyle={{ paddingBottom: space + 80 }}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={() => refresh()} />}>
         <SemesterCard courses={courses} />
         <FocusTimer courses={courses} minutesByCourse={minutes} />
@@ -116,7 +117,7 @@ export default function StudyScreen() {
         {showDone && done.map((t) => <TaskRow key={t.id} t={t} course={byId[t.courseId]} onToggle={() => toggleDone(t.id)} onPress={() => setTaskEdit(t)} />)}
       </ScrollView>
 
-      <TouchableOpacity style={st.fab} onPress={() => setTaskEdit('new')}><Text style={st.fabText}>＋</Text></TouchableOpacity>
+      <Fab onPress={() => setTaskEdit('new')} accessibilityLabel="Add task" />
 
       <TaskSheet visible={!!taskEdit} task={taskEdit === 'new' ? null : taskEdit} courses={courses}
         onClose={() => setTaskEdit(null)} onSave={saveTask}
@@ -172,6 +173,4 @@ const st = StyleSheet.create({
   doneText: { textDecorationLine: 'line-through', color: '#999' },
   taskSub: { fontSize: 12, color: '#777', marginTop: 3 },
   dot: { width: 10, height: 10, borderRadius: 5, marginLeft: 8 },
-  fab: { position: 'absolute', right: 18, bottom: 18, width: 58, height: 58, borderRadius: 29, backgroundColor: C.primary, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
-  fabText: { color: '#fff', fontSize: 30, marginTop: -2 },
 });

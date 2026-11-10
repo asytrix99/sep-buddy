@@ -2,19 +2,18 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Tabs } from 'expo-router';
 import { C } from '../../components/ui';
+import GlassTabBar from '../../components/GlassTabBar';
 
 const icon = (emoji) => function TabIcon({ focused }) {
-  return <Text style={{ fontSize: 21, opacity: focused ? 1 : 0.55 }}>{emoji}</Text>;
+  return <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.6, transform: [{ scale: focused ? 1.08 : 1 }] }}>{emoji}</Text>;
 };
+
+const renderTabBar = (props) => <GlassTabBar {...props} />;
 
 export default function TabsLayout() {
   return (
-    <Tabs initialRouteName="today" screenOptions={{
+    <Tabs initialRouteName="today" tabBar={renderTabBar} screenOptions={{
       headerShown: false,
-      tabBarActiveTintColor: C.primary,
-      tabBarInactiveTintColor: C.sub,
-      tabBarStyle: { backgroundColor: C.tabBar, borderTopColor: C.line },
-      tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
       sceneStyle: { backgroundColor: C.bg },
     }}>
       <Tabs.Screen name="today" options={{ title: 'Today', tabBarIcon: icon('☀️') }} />

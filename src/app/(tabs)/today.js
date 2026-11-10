@@ -6,7 +6,7 @@
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
-import { ScreenHeader, Card, C } from '../../components/ui';
+import { ScreenHeader, Card, C, useTabBarSpace } from '../../components/ui';
 import Commute from '../../components/today/Commute';
 import { usePersisted, KEYS } from '../../lib/storage';
 import { ymd, fmtTime, parseYmd, relDays } from '../../lib/dates';
@@ -20,6 +20,7 @@ const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function TodayScreen() {
+  const space = useTabBarSpace();
   const today = ymd();
   const d = parseYmd(today);
   const [home] = usePersisted(KEYS.home, HOME_DEFAULT);
@@ -66,7 +67,7 @@ export default function TodayScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: C.bg }}>
       <ScreenHeader title="Today" subtitle={subtitle} />
-      <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: space + 16 }}>
         {/* Semester status */}
         <Card style={st.semCard}>
           {sem.phase === 'before' ? (

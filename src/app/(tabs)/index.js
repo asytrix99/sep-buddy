@@ -6,7 +6,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, Pressable, ScrollView,
-  ActivityIndicator, Image, Modal, Linking, TextInput, Keyboard, Dimensions, StatusBar,
+  ActivityIndicator, Image, Modal, Linking, TextInput, Keyboard, Dimensions, StatusBar, Animated, Easing,
 } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -17,8 +17,25 @@ import {
   resample, fetchAmenities, searchAddress, getRoute, findPhoto, upcomingStep, streetViewUrl,
 } from '../../lib/geo';
 import { usePersisted, save, load, KEYS } from '../../lib/storage';
-import { C } from '../../components/ui';
+import { C, Glass, GlassButton, useTabBarSpace } from '../../components/ui';
 import { visibleEvents, BUNDLED_FEED, DEFAULT_SOURCES, SOURCE } from '../../lib/events';
+
+/** The ↻ glyph, turning while `spinning` — so the glass button's content never swaps. */
+function SpinningIcon({ spinning, style, children }) {
+  const [turn] = useState(() => new Animated.Value(0));
+  useEffect(() => {
+    if (!spinning) {
+      turn.stopAnimation();
+      turn.setValue(0);
+      return undefined;
+    }
+    const loop = Animated.loop(Animated.timing(turn, { toValue: 1, duration: 800, easing: Easing.linear, useNativeDriver: true }));
+    loop.start();
+    return () => loop.stop();
+  }, [spinning, turn]);
+  const rotate = turn.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+  return <Animated.Text style={[style, { transform: [{ rotate }] }]}>{children}</Animated.Text>;
+}
 
 // Saved copy of the places around HOME_DEFAULT, shown instantly while the live data loads
 // (or when the free servers are down). Regenerate it with: node scripts/snapshot-places.js
@@ -26,6 +43,7 @@ const PLACES_SNAPSHOT = require('../../../places-snapshot.json');
 
 export default function MapScreen() {
   const insets = useSafeAreaInsets();
+  const space = useTabBarSpace(); // floating glass tab bar covers the bottom of the map
   const W = Dimensions.get('window').width;
   const mapRef = useRef(null);
   const miniRef = useRef(null);
@@ -163,7 +181,7 @@ export default function MapScreen() {
         setIdx(0);
         setRoute(r);
         setTimeout(() => mapRef.current?.fitToCoordinates(r.coords.map(toLL), {
-          edgePadding: { top: insets.top + 230, right: 40, bottom: 120, left: 40 }, animated: true,
+          edgePadding: { top: insets.top + 230, right: 40, bottom: space + 60, left: 40 }, animated: true,
         }), 250);
       })
       .catch((e) => gen === routeGen.current && setErr('Route failed: ' + e.message))
@@ -341,26 +359,30 @@ export default function MapScreen() {
       {/* ── Top: search + chips + route ── */}
       <View style={[styles.top, { paddingTop: insets.top + 6 }]} pointerEvents="box-none">
         <View style={styles.searchRow}>
-          <TextInput
-            style={styles.search}
-            placeholder="Search places or addresses"
-            placeholderTextColor="#888"
-            value={query}
-            onChangeText={setQuery}
-            clearButtonMode="while-editing"
-            returnKeyType="search"
-          />
-          <TouchableOpacity
-            style={styles.refreshBtn}
+          <Glass style={styles.searchGlass}>
+            <TextInput
+              style={styles.search}
+              placeholder="Search places or addresses"
+              placeholderTextColor={C.sub}
+              value={query}
+              onChangeText={setQuery}
+              clearButtonMode="while-editing"
+              returnKeyType="search"
+            />
+          </Glass>
+          <GlassButton
+            style={styles.refreshWrap}
+            glassStyle={styles.refreshBtn}
             disabled={loading}
             onPress={() => { Keyboard.dismiss(); loadPlaces(regionCenter || loadedAt); }}
-            accessibilityLabel="Refresh nearby places"
+            accessibilityLabel={loading ? 'Loading nearby places' : 'Refresh nearby places'}
           >
-            {loading ? <ActivityIndicator /> : <Text style={styles.refreshText}>↻</Text>}
-          </TouchableOpacity>
+            <SpinningIcon spinning={loading} style={styles.refreshText}>↻</SpinningIcon>
+          </GlassButton>
         </View>
         {(results.length > 0 || addrItems.length > 0 || addrSearching || addrFailed) && (
-          <ScrollView style={styles.results} keyboardShouldPersistTaps="handled">
+          <Glass style={styles.results}>
+          <ScrollView keyboardShouldPersistTaps="handled">
             {results.length > 0 && <Text style={styles.resultHead}>On the map</Text>}
             {results.map((p) => (
               <TouchableOpacity key={p.id} style={styles.resultRow} onPress={() => focus(p)}>
@@ -383,27 +405,28 @@ export default function MapScreen() {
               </TouchableOpacity>
             ))}
           </ScrollView>
+          </Glass>
         )}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips} keyboardShouldPersistTaps="handled">
           {eventPins.length > 0 && (
-            <TouchableOpacity onPress={() => setShowEvents((v) => !v)}
-              style={[styles.chip, showEvents && { backgroundColor: '#7048e8', borderColor: '#7048e8' }]}>
-              <Text style={[styles.chipText, showEvents && { color: '#fff' }]}>🎉 Events · {eventPins.length}</Text>
-            </TouchableOpacity>
+            <GlassButton onPress={() => setShowEvents((v) => !v)} style={styles.chipWrap} interactive
+                tint={showEvents ? '#7048e8' : undefined} glassStyle={styles.chip}>
+                <Text style={[styles.chipText, showEvents && { color: '#fff' }]}>🎉 Events · {eventPins.length}</Text>
+              </GlassButton>
           )}
           {CATEGORIES.map((c) => {
             const on = enabled.has(c.key);
             return (
-              <TouchableOpacity key={c.key} onPress={() => toggleCat(c.key)}
-                style={[styles.chip, on && { backgroundColor: c.color, borderColor: c.color }]}>
-                <Text style={[styles.chipText, on && { color: '#fff' }]}>{c.emoji} {c.label}{places.length ? ` · ${catCounts[c.key] || 0}` : ''}</Text>
-              </TouchableOpacity>
+              <GlassButton key={c.key} onPress={() => toggleCat(c.key)} style={styles.chipWrap} interactive
+                  tint={on ? c.color : undefined} glassStyle={styles.chip}>
+                  <Text style={[styles.chipText, on && { color: '#fff' }]}>{c.emoji} {c.label}{places.length ? ` · ${catCounts[c.key] || 0}` : ''}</Text>
+                </GlassButton>
             );
           })}
         </ScrollView>
 
         {to && (
-          <View style={styles.routeBox}>
+          <Glass style={styles.routeBox}>
             <View style={styles.routeRow}>
               <Text style={styles.routeDot}>🟢</Text>
               <Text style={styles.routeName} numberOfLines={1}>{from?.name || 'Pick a start'}</Text>
@@ -432,7 +455,7 @@ export default function MapScreen() {
                 </View>
               </>
             )}
-          </View>
+          </Glass>
         )}
 
         {err && (
@@ -441,15 +464,16 @@ export default function MapScreen() {
           </TouchableOpacity>
         )}
         {showSearchArea && (
-          <TouchableOpacity style={styles.searchArea} onPress={() => loadPlaces(regionCenter)}>
-            <Text style={styles.searchAreaText}>↻ Search this area</Text>
-          </TouchableOpacity>
+          <GlassButton style={styles.searchAreaWrap} onPress={() => loadPlaces(regionCenter)} interactive
+              tint={C.primary} glassStyle={styles.searchArea}>
+              <Text style={styles.searchAreaText}>↻ Search this area</Text>
+            </GlassButton>
         )}
       </View>
 
       {/* ── Bottom: selected place card ── */}
       {sel && (
-        <View style={[styles.card, { paddingBottom: 14 }]}>
+        <Glass style={[styles.card, { bottom: space + 6 }]}>
           <Text style={styles.cardTitle} numberOfLines={2}>{selCat ? selCat.emoji + '  ' : ''}{sel.name}</Text>
           <Text style={styles.cardSub}>
             {selCat ? selCat.label + ' · ' : ''}
@@ -492,7 +516,7 @@ export default function MapScreen() {
               </TouchableOpacity>
             )}
           </View>
-        </View>
+        </Glass>
       )}
 
       {/* ── Steps list ── */}
@@ -601,7 +625,6 @@ export default function MapScreen() {
   );
 }
 
-const shadow = { shadowColor: '#000', shadowOpacity: 0.15, shadowRadius: 8, shadowOffset: { width: 0, height: 2 }, elevation: 4 };
 
 const styles = StyleSheet.create({
   pin: { width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#fff' },
@@ -611,10 +634,12 @@ const styles = StyleSheet.create({
 
   top: { position: 'absolute', top: 0, left: 0, right: 0, paddingHorizontal: 10 },
   searchRow: { flexDirection: 'row', alignItems: 'center' },
-  refreshBtn: { marginLeft: 8, width: 44, height: 44, borderRadius: 12, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', ...shadow },
-  refreshText: { fontSize: 22, color: '#111', fontWeight: '600' },
-  search: { flex: 1, backgroundColor: '#fff', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 11, fontSize: 16, color: '#111', ...shadow },
-  results: { backgroundColor: '#fff', borderRadius: 12, marginTop: 6, maxHeight: 360, ...shadow },
+  refreshWrap: { marginLeft: 8, borderRadius: 23 },
+  refreshBtn: { width: 46, height: 46, borderRadius: 23, alignItems: 'center', justifyContent: 'center' },
+  refreshText: { fontSize: 22, color: C.text, fontWeight: '600' },
+  searchGlass: { flex: 1, borderRadius: 23 },
+  search: { paddingHorizontal: 16, paddingVertical: 12, fontSize: 16, color: C.text },
+  results: { borderRadius: 20, marginTop: 6, maxHeight: 360, overflow: 'hidden' },
   resultHead: { fontSize: 11, fontWeight: '700', color: '#888', textTransform: 'uppercase', letterSpacing: 0.5, paddingHorizontal: 14, paddingTop: 10, paddingBottom: 2 },
   resultAddr: { fontSize: 12, color: '#777', marginTop: 2, marginLeft: 26 },
   resultNote: { fontSize: 13, color: '#888', paddingHorizontal: 14, paddingVertical: 8 },
@@ -622,10 +647,11 @@ const styles = StyleSheet.create({
   resultName: { flex: 1, fontSize: 15, color: '#111' },
   resultDist: { fontSize: 13, color: '#666', marginLeft: 8 },
   chips: { paddingVertical: 8, gap: 6 },
-  chip: { backgroundColor: '#fff', borderRadius: 18, paddingHorizontal: 12, paddingVertical: 7, borderWidth: 1, borderColor: '#ddd', marginRight: 6, ...shadow },
-  chipText: { fontSize: 13, color: '#222', fontWeight: '500' },
+  chipWrap: { marginRight: 6, borderRadius: 18 },
+  chip: { borderRadius: 18, paddingHorizontal: 12, paddingVertical: 8 },
+  chipText: { fontSize: 13, color: C.text, fontWeight: '600' },
 
-  routeBox: { backgroundColor: '#fff', borderRadius: 14, padding: 12, ...shadow },
+  routeBox: { borderRadius: 22, padding: 14 },
   routeRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 2 },
   routeDot: { fontSize: 12, marginRight: 8 },
   routeName: { flex: 1, fontSize: 15, color: '#111' },
@@ -640,10 +666,11 @@ const styles = StyleSheet.create({
 
   err: { backgroundColor: '#ffebee', borderRadius: 10, padding: 10, marginTop: 8 },
   errText: { color: '#b71c1c', fontSize: 13 },
-  searchArea: { alignSelf: 'center', backgroundColor: C.primary, borderRadius: 20, paddingHorizontal: 14, paddingVertical: 8, marginTop: 8 },
-  searchAreaText: { color: '#fff', fontWeight: '600' },
+  searchAreaWrap: { alignSelf: 'center', marginTop: 8, borderRadius: 20 },
+  searchArea: { borderRadius: 20, paddingHorizontal: 16, paddingVertical: 9 },
+  searchAreaText: { color: '#fff', fontWeight: '700' },
 
-  card: { position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: '#fff', borderTopLeftRadius: 18, borderTopRightRadius: 18, padding: 16, ...shadow },
+  card: { position: 'absolute', left: 10, right: 10, borderRadius: 26, padding: 18 },
   cardTitle: { fontSize: 19, fontWeight: '700', color: '#111' },
   cardSub: { fontSize: 13, color: '#666', marginTop: 3 },
   cardInfo: { fontSize: 14, color: '#333', marginTop: 6 },

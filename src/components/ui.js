@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, ScrollView, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TouchableOpacity, Pressable, StyleSheet, Modal, ScrollView, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { GlassView, isLiquidGlassAvailable, isGlassEffectAPIAvailable } from 'expo-glass-effect';
 
 /**
  * App theme — light blue. Change colours here and every screen follows.
@@ -21,6 +22,64 @@ export const C = {
 };
 
 export const shadow = { shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 10, shadowOffset: { width: 0, height: 2 }, elevation: 2 };
+
+/**
+ * Apple Liquid Glass (iOS 26+). Falls back to a frosted-looking plain View on older iOS,
+ * on Android, or when the API is missing. Never animate opacity on/above a GlassView
+ * (Apple: it stops rendering) — animate transforms instead.
+ */
+export const HAS_GLASS = (() => {
+  if (Platform.OS !== 'ios') return false;
+  try {
+    return isGlassEffectAPIAvailable() && isLiquidGlassAvailable();
+  } catch {
+    return false;
+  }
+})();
+
+export function Glass({ style, tint, interactive, clear, fallback = 'rgba(255,255,255,0.94)', children, ...rest }) {
+  if (HAS_GLASS) {
+    return (
+      <GlassView style={style} glassEffectStyle={clear ? 'clear' : 'regular'} tintColor={tint}
+        isInteractive={!!interactive} colorScheme="light" {...rest}>
+        {children}
+      </GlassView>
+    );
+  }
+  return <View style={[{ backgroundColor: tint || fallback }, shadow, style]} {...rest}>{children}</View>;
+}
+
+/** Height of the floating glass tab bar, and how much room to leave under scrolling content. */
+export const TAB_BAR_H = 62;
+export function useTabBarSpace() {
+  const insets = useSafeAreaInsets();
+  return TAB_BAR_H + Math.max(insets.bottom - 6, 10) + 10;
+}
+
+/**
+ * A pressable glass button. Gives feedback by shrinking a little — never by fading, because
+ * opacity on a GlassView's parent makes the glass glitch (ghost copies, or it vanishes).
+ * Keep its children the same while it's on screen; swapping them mid-press also ghosts.
+ */
+export function GlassButton({ onPress, disabled, style, glassStyle, tint, interactive, accessibilityLabel, children }) {
+  return (
+    <Pressable onPress={onPress} disabled={disabled} accessibilityRole="button" accessibilityLabel={accessibilityLabel}
+      style={({ pressed }) => [style, pressed && { transform: [{ scale: 0.95 }] }]}>
+      <Glass tint={tint} interactive={interactive} style={glassStyle}>{children}</Glass>
+    </Pressable>
+  );
+}
+
+/** Round glass ＋ button that floats just above the tab bar. */
+export function Fab({ onPress, label = '＋', accessibilityLabel }) {
+  const space = useTabBarSpace();
+  return (
+    <GlassButton onPress={onPress} accessibilityLabel={accessibilityLabel} interactive tint={C.primary}
+      style={[s.fabWrap, { bottom: space + 4 }]} glassStyle={s.fab}>
+      <Text style={s.fabText}>{label}</Text>
+    </GlassButton>
+  );
+}
 
 export function ScreenHeader({ title, subtitle, right }) {
   const insets = useSafeAreaInsets();
@@ -146,6 +205,9 @@ export function Toggle({ label, sub, value, onChange }) {
 }
 
 export const s = StyleSheet.create({
+  fabWrap: { position: 'absolute', right: 18, borderRadius: 30, ...shadow, shadowOpacity: 0.18 },
+  fab: { width: 60, height: 60, borderRadius: 30, alignItems: 'center', justifyContent: 'center' },
+  fabText: { color: '#fff', fontSize: 30, fontWeight: '600', marginTop: -2 },
   header: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: 16, paddingBottom: 10, backgroundColor: C.bg },
   hTitle: { fontSize: 28, fontWeight: '800', color: C.text },
   hSub: { fontSize: 14, color: C.sub, marginTop: 2 },

@@ -6,7 +6,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, AppState } from 'react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
-import { ScreenHeader, Card, Btn, IconBtn, SectionTitle, Sheet, Toggle, Label, DateTimeField, Empty, C } from '../../components/ui';
+import { ScreenHeader, Card, Btn, IconBtn, SectionTitle, Sheet, Toggle, Label, DateTimeField, Empty, C, useTabBarSpace } from '../../components/ui';
 import CycleCalendar from '../../components/cycle/CycleCalendar';
 import DayLogSheet from '../../components/cycle/DayLogSheet';
 import FoodIdeas from '../../components/cycle/FoodIdeas';
@@ -16,6 +16,7 @@ import { usePersisted, KEYS } from '../../lib/storage';
 import { HOME_DEFAULT } from '../../lib/geo';
 
 export default function CycleScreen() {
+  const space = useTabBarSpace();
   const today = ymd();
   const [periodDays, setPeriodDays] = usePersisted(KEYS.periodDays, []);
   const [dayLogs, setDayLogs] = usePersisted(KEYS.dayLogs, {});
@@ -105,7 +106,7 @@ export default function CycleScreen() {
     <View style={{ flex: 1, backgroundColor: C.bg }}>
       <ScreenHeader title="Cycle" subtitle={info ? `Cycle day ${info.cycleDay} · ${phase.label}` : 'Period tracker'}
         right={<IconBtn label="⚙️" onPress={() => setShowSettings(true)} />} />
-      <ScrollView contentContainerStyle={{ paddingBottom: 30 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: space + 16 }}>
         {/* Today ring */}
         <Card style={{ alignItems: 'center', paddingVertical: 22 }}>
           <View style={[st.ring, { borderColor: ringColor, backgroundColor: phase?.soft || '#fde2e3' }]}>

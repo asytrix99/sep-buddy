@@ -7,7 +7,7 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl, Linking } from 'react-native';
 import { router } from 'expo-router';
-import { ScreenHeader, Card, Btn, Chip, IconBtn, Empty, Sheet, Field, Label, DateTimeField, Toggle, C } from '../../components/ui';
+import { ScreenHeader, Card, Btn, Chip, IconBtn, Empty, Sheet, Field, Label, DateTimeField, Toggle, C, Fab, useTabBarSpace } from '../../components/ui';
 import MonthCalendar from '../../components/events/MonthCalendar';
 import { usePersisted, KEYS } from '../../lib/storage';
 import {
@@ -22,6 +22,7 @@ const pickable = EVENT_SOURCES.filter((s) => s.id !== 'mine');
 const ACCENT = C.primary;
 
 export default function EventsScreen() {
+  const space = useTabBarSpace();
   const [feed] = usePersisted(KEYS.eventsCache, BUNDLED_FEED);
   const [mine, setMine] = usePersisted(KEYS.myEvents, []);
   const [sources, setSources] = usePersisted(KEYS.eventSources, DEFAULT_SOURCES);
@@ -115,7 +116,7 @@ export default function EventsScreen() {
             <IconBtn label="⚙️" onPress={openSettings} />
           </View>
         )} />
-      <ScrollView contentContainerStyle={{ paddingBottom: 90 }} refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
+      <ScrollView contentContainerStyle={{ paddingBottom: space + 80 }} refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 6 }}>
           <Chip label="⭐ Starred" on={onlyStarred} color="#f08c00" onPress={() => setOnlyStarred((v) => !v)} />
           {pickable.map((s) => <Chip key={s.id} label={`${s.emoji} ${s.name}`} on={sources.includes(s.id)} color={s.color} onPress={() => toggleSource(s.id)} />)}
@@ -157,9 +158,7 @@ export default function EventsScreen() {
         )}
       </ScrollView>
 
-      <TouchableOpacity style={st.fab} onPress={() => openAdd({ day: view === 'month' ? day : null })} accessibilityLabel="Add event">
-        <Text style={st.fabText}>＋</Text>
-      </TouchableOpacity>
+      <Fab onPress={() => openAdd({ day: view === 'month' ? day : null })} accessibilityLabel="Add event" />
 
       <AddEventSheet key={'a' + opens} visible={!!adding} event={adding?.event} day={adding?.day} onClose={() => setAdding(null)}
         onSave={(ev) => { setMine((m) => (m.some((x) => x.id === ev.id) ? m.map((x) => (x.id === ev.id ? ev : x)) : [...m, ev])); setAdding(null); }} />
@@ -305,6 +304,4 @@ const st = StyleSheet.create({
   wrap: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 6 },
   hint: { fontSize: 12, color: '#888', marginBottom: 14 },
   srcLine: { fontSize: 13, color: '#444', marginBottom: 6 },
-  fab: { position: 'absolute', right: 18, bottom: 18, width: 58, height: 58, borderRadius: 29, backgroundColor: ACCENT, alignItems: 'center', justifyContent: 'center', shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
-  fabText: { color: '#fff', fontSize: 30, marginTop: -2 },
 });

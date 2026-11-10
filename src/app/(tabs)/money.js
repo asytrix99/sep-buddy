@@ -4,8 +4,7 @@
  */
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ScreenHeader, Card, IconBtn, SectionTitle, Empty, Btn, C, shadow } from '../../components/ui';
+import { ScreenHeader, Card, IconBtn, SectionTitle, Empty, Btn, C, Fab, useTabBarSpace } from '../../components/ui';
 import { Donut, MonthBars, BudgetMeter, ShareBar } from '../../components/money/Charts';
 import { ExpenseSheet, BudgetSheet } from '../../components/money/MoneySheets';
 import { usePersisted, KEYS } from '../../lib/storage';
@@ -18,7 +17,7 @@ import { fmtDay, ymd, parseYmd } from '../../lib/dates';
 const ACCENT = C.primary;
 
 export default function MoneyScreen() {
-  const insets = useSafeAreaInsets();
+  const space = useTabBarSpace();
   const [expenses, setExpenses] = usePersisted(KEYS.expenses, []);
   const [settings, setSettings] = usePersisted(KEYS.moneySettings, { budget: 0, lastCat: 'groceries' });
 
@@ -68,7 +67,7 @@ export default function MoneyScreen() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 110 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: space + 80 }}>
         {expenses.length === 0 ? (
           <Card>
             <Empty emoji="💸" title="No expenses yet" text="Tap + to log what you spend. You'll get a breakdown by category, a monthly budget and a 6-month trend.">
@@ -177,9 +176,7 @@ export default function MoneyScreen() {
         )}
       </ScrollView>
 
-      <TouchableOpacity style={[st.fab, { bottom: 18 + Math.max(insets.bottom - 30, 0) }]} onPress={() => openEdit('new')} accessibilityLabel="Add expense">
-        <Text style={st.fabText}>＋</Text>
-      </TouchableOpacity>
+      <Fab onPress={() => openEdit('new')} accessibilityLabel="Add expense" />
 
       <ExpenseSheet key={'e' + opens} expense={edit} lastCat={settings.lastCat} defaultDay={isNow ? ymd() : `${month}-01`}
         onSave={save} onDelete={remove} onClose={() => setEdit(null)} />
@@ -235,9 +232,4 @@ const st = StyleSheet.create({
   rowTitle: { fontSize: 15, color: C.text, fontWeight: '500' },
   rowSub: { fontSize: 12, color: C.sub, marginTop: 1 },
   rowAmount: { fontSize: 15, fontWeight: '700', color: C.text },
-  fab: {
-    position: 'absolute', right: 18, width: 58, height: 58, borderRadius: 29, backgroundColor: ACCENT,
-    alignItems: 'center', justifyContent: 'center', ...shadow, shadowOpacity: 0.25,
-  },
-  fabText: { color: '#fff', fontSize: 30, fontWeight: '600', marginTop: -2 },
 });
