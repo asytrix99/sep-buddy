@@ -17,6 +17,15 @@
       "category": "lifestyle",
       "versions": [
         {
+          "version": "1.2.0",
+          "buildVersion": "1",
+          "date": "2026-11-10",
+          "size": 12458984,
+          "downloadURL": "https://github.com/asytrix99/sep-buddy/releases/download/v1.2.0/sep-buddy.ipa",
+          "localizedDescription": "Liquid Glass: floating tab bar, glass buttons and map controls, cute loading screen",
+          "minOSVersion": "16.4"
+        },
+        {
           "version": "1.1.0",
           "buildVersion": "1",
           "date": "2026-11-10",
@@ -42,11 +51,11 @@
           "NSFaceIDUsageDescription": "Allow the app to lock your cycle data with Face ID."
         }
       },
-      "version": "1.1.0",
+      "version": "1.2.0",
       "versionDate": "2026-11-10",
-      "versionDescription": "New icon, splash screen and name",
-      "downloadURL": "https://github.com/asytrix99/sep-buddy/releases/download/v1.1.0/sep-buddy.ipa",
-      "size": 12456023
+      "versionDescription": "Liquid Glass: floating tab bar, glass buttons and map controls, cute loading screen",
+      "downloadURL": "https://github.com/asytrix99/sep-buddy/releases/download/v1.2.0/sep-buddy.ipa",
+      "size": 12458984
     }
   ],
   "news": []
