@@ -8,7 +8,7 @@ import { ymd, fmtTime, addDays } from './dates';
 // After you push the repo to GitHub, put the raw URL of events.json here, e.g.
 // 'https://raw.githubusercontent.com/<your-username>/ryd-map/main/events.json'
 // (It can also be pasted in the app: Events → ⚙︎ → Feed link.)
-export const EVENTS_FEED_URL = '';
+export const EVENTS_FEED_URL = 'https://raw.githubusercontent.com/asytrix99/sep-buddy/main/events.json';
 
 // Bundled copy so the tab is never empty (regenerate with: node scripts/collect-events.js)
 export const BUNDLED_FEED = require('../../events.json');
