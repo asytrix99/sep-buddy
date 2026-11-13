@@ -1,13 +1,13 @@
 {
- "updatedAt": "2026-11-12T12:41:27.035Z",
+ "updatedAt": "2026-11-13T12:11:10.120Z",
  "sources": {
   "other:studentlivet": {
    "ok": true,
-   "count": 63
+   "count": 57
   },
   "city:ticketmaster": {
    "ok": true,
-   "count": 58
+   "count": 57
   },
   "manual": {
    "ok": true,
@@ -38,6 +38,19 @@
    "description": "Music · Nicole Sabouné släpper sitt nya album \"ANA\" -- och med start i januari nästa år väntar en turné med nio stopp på svensk mark. I över ett decennium har Nicole Sabouné varit en av landets främsta förvaltare av postpunkens arv. Men hennes konstnärskap har aldrig handlat om nostalgi. Ända sedan debuten med \"Must Exist\" (2014) har hon med sin majestätiska röst och en närmast okuvlig konstnärlig",
    "lat": 58.42239,
    "lon": 15.61556
+  },
+  {
+   "id": "city-samma-a-sna-men-med-ny-sadel-2027-02-06",
+   "source": "city",
+   "title": "Samma åsna men med ny sadel",
+   "start": "2027-02-06T19:30:00",
+   "end": null,
+   "allDay": false,
+   "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
+   "url": "https://www.ticketmaster.se/event/det-ar-samma-asna-bara-med-en-ny-sadel-biljetter/46852781",
+   "description": "Arts & Theatre · Det är samma åsna, bara med en ny sadel -- En humorshow av och med Anders \"Ankan\" Johansson Efter två utsålda turnésvängar med hyllade \"Det är samma åsna, bara med en ny sadel\" tänkte Anders \"Ankan\" Johansson i våras att han hade gått i mål med sin humorföreställning. Han firade, packade ihop och pustade ut. Men så i höstas utsågs föreställningen till \"Årets scenshow\" på Barncance",
+   "lat": 58.41323,
+   "lon": 15.61516
   },
   {
    "id": "city-soppgirobygget-euro-tour-2027-02-12",
