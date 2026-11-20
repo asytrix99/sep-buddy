@@ -1,13 +1,13 @@
 {
- "updatedAt": "2026-11-19T13:01:45.129Z",
+ "updatedAt": "2026-11-20T12:52:36.906Z",
  "sources": {
   "other:studentlivet": {
    "ok": true,
-   "count": 54
+   "count": 51
   },
   "city:ticketmaster": {
    "ok": true,
-   "count": 53
+   "count": 55
   },
   "manual": {
    "ok": true,
@@ -205,6 +205,19 @@
    "location": "Garden, Konsert & Kongress, Konsistoriegatan 7",
    "url": "https://www.ticketmaster.se/event/daniel-sloss-bitter-biljetter/1544485984",
    "description": "Arts & Theatre · DON'T MISS your chance to catch one of the biggest global names in live stand-up, as Scotland's international comedy superstar Daniel Sloss unleashes his brilliant and devastatingly hilarious brand-new show \"BITTER\" Daniel's massive live tours span 55 countries (so far)including selling out 9 New York off-Broadway theatre seasons. He has been performing standup for more than half ",
+   "lat": 58.41323,
+   "lon": 15.61516
+  },
+  {
+   "id": "city-arja-in-concert-2027-02-28",
+   "source": "city",
+   "title": "ARJA - In Concert",
+   "start": "2027-02-28T18:00:00",
+   "end": null,
+   "allDay": false,
+   "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
+   "url": "https://www.ticketmaster.se/event/arja-in-concert-biljetter/1539688779",
+   "description": "Music · När Arja Saijonmaa börjar sjunga blir det tyst i salongen. Så har det varit i över 50 år, och så är det fortfarande. Med en karriär som sträcker sig över mer än fem decennier fortsätter Arja Saijonmaa att överraska och förnya sig. Nu presenterar hon ARJA, en ny konsertföreställning där hennes musikalitet, personlighet och rika artistliv får ta plats i ett nytt och exklusivt format. Det är ",
    "lat": 58.41323,
    "lon": 15.61516
   },
@@ -422,6 +435,19 @@
    "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
    "url": "https://www.ticketmaster.se/event/en-jakla-massa-schlager-magnus-carlsson--linda-bengtzing-biljetter/1120064702",
    "description": "Music · En Jäkla Massa Schlager - Schlagersuccén återvänder! Efter flera utsålda succéturnéer är Magnus Carlsson och Linda Bengtzing tillbaka med en ny och uppdaterad version av \"En Jäkla Massa Schlager\". I Sveriges största konserthus och teatrar under våren 2027 väntar en ny sprakande schlagerkväll fylld av glitter, energi, allsång och odödliga hits -- när två av Sveriges mest folkkära schlagerar",
+   "lat": 58.41323,
+   "lon": 15.61516
+  },
+  {
+   "id": "city-sven-ingvars-iga-r-idag-imorgon-igen-2027-04-25",
+   "source": "city",
+   "title": "Sven Ingvars - Igår, idag, imorgon... igen",
+   "start": "2027-04-25T17:00:00",
+   "end": null,
+   "allDay": false,
+   "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
+   "url": "https://www.ticketmaster.se/event/sven-ingvars-igar-idag-imorgon-igen-biljetter/1633330105",
+   "description": "Music · Ett år räcker inte för att fira sju decennier av musik! Våren 2027 fortsätter Sven Ingvars jubileumsfirandet med \"Igår, idag, imorgon...igen\". Med Oscar Magnusson i spetsen bjuder bandet på stora hits, stillsamma ballader och berättelser från sin långa historia. En kväll fylld av spelglädje, minnen och en låtskatt som förenar generationer. Längd: cirka 1 timme 45 minuter (ej paus) Arrangör",
    "lat": 58.41323,
    "lon": 15.61516
   },
