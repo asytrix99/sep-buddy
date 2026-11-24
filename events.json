@@ -1,9 +1,9 @@
 {
- "updatedAt": "2026-11-23T14:35:23.247Z",
+ "updatedAt": "2026-11-24T14:51:13.716Z",
  "sources": {
   "other:studentlivet": {
    "ok": true,
-   "count": 44
+   "count": 54
   },
   "city:ticketmaster": {
    "ok": true,
@@ -152,7 +152,7 @@
    "allDay": false,
    "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
    "url": "https://www.ticketmaster.se/event/night-of-famous-musicals-the-greatest-musical-hits-of-our-time-biljetter/1366827284",
-   "description": "Music · Night of Famous Musicals är en storslagen hyllning till musikalernas magi! Här bjuds publiken på de största musikaliska höjdpunkterna från Broadway och West End, framförda av internationella stjärnsolister, kör, liveband och dansare. Showen är fylld av tidlösa favoriter och moderna klassiker från Les Misérables, Chess, The Lion King, Moulin Rouge och många fler. Publiken får också njuta av",
+   "description": "Arts & Theatre · Night of Famous Musicals är en storslagen hyllning till musikalernas magi! Här bjuds publiken på de största musikaliska höjdpunkterna från Broadway och West End, framförda av internationella stjärnsolister, kör, liveband och dansare. Showen är fylld av tidlösa favoriter och moderna klassiker från Les Misérables, Chess, The Lion King, Moulin Rouge och många fler. Publiken får också",
    "lat": 58.41323,
    "lon": 15.61516
   },
