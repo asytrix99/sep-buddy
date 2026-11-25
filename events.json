@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-24T14:51:13.716Z",
+ "updatedAt": "2026-11-25T14:18:59.612Z",
  "sources": {
   "other:studentlivet": {
    "ok": true,
@@ -7,7 +7,7 @@
   },
   "city:ticketmaster": {
    "ok": true,
-   "count": 52
+   "count": 53
   },
   "manual": {
    "ok": true,
