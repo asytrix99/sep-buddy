@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T13:52:32.376Z",
+ "updatedAt": "2026-11-27T13:50:11.804Z",
  "sources": {
   "other:studentlivet": {
    "ok": true,
@@ -7,7 +7,7 @@
   },
   "city:ticketmaster": {
    "ok": true,
-   "count": 53
+   "count": 51
   },
   "manual": {
    "ok": true,
@@ -64,6 +64,19 @@
    "description": "Music · Den norska superduon Soppgirobygget ger sig ut på en stor vårturné 2027 genom fem länder: Finland, Sverige, Norge, Danmark och Tyskland. Tolv spelningar väntar mellan Helsingfors i januari och Köpenhamn i april. Med hits som \"Afterski\", \"Domen\", \"Kjøpe Hele Sverige\" och \"Viva La Vida\" har Soppgirobygget samlat över 200 miljoner streams. 2025 års \"Bassiani\" har passerat 20 miljoner streams,",
    "lat": 58.41695,
    "lon": 15.63608
+  },
+  {
+   "id": "city-arja-in-concert-2027-02-13",
+   "source": "city",
+   "title": "ARJA - In Concert",
+   "start": "2027-02-13T18:00:00",
+   "end": null,
+   "allDay": false,
+   "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
+   "url": "https://www.ticketmaster.se/event/arja-in-concert-biljetter/1539688779",
+   "description": "Music · När Arja Saijonmaa börjar sjunga blir det tyst i salongen. Så har det varit i över 50 år, och så är det fortfarande. Med en karriär som sträcker sig över mer än fem decennier fortsätter Arja Saijonmaa att överraska och förnya sig. Nu presenterar hon ARJA, en ny konsertföreställning där hennes musikalitet, personlighet och rika artistliv får ta plats i ett nytt och exklusivt format. Det är ",
+   "lat": 58.41323,
+   "lon": 15.61516
   },
   {
    "id": "city-rock-sensation-2027-02-14",
@@ -205,19 +218,6 @@
    "location": "Garden, Konsert & Kongress, Konsistoriegatan 7",
    "url": "https://www.ticketmaster.se/event/daniel-sloss-bitter-biljetter/1544485984",
    "description": "Arts & Theatre · DON'T MISS your chance to catch one of the biggest global names in live stand-up, as Scotland's international comedy superstar Daniel Sloss unleashes his brilliant and devastatingly hilarious brand-new show \"BITTER\" Daniel's massive live tours span 55 countries (so far)including selling out 9 New York off-Broadway theatre seasons. He has been performing standup for more than half ",
-   "lat": 58.41323,
-   "lon": 15.61516
-  },
-  {
-   "id": "city-arja-in-concert-2027-02-28",
-   "source": "city",
-   "title": "ARJA - In Concert",
-   "start": "2027-02-28T18:00:00",
-   "end": null,
-   "allDay": false,
-   "location": "Linköping Konsert & Kongress, Konsistoriegatan 7",
-   "url": "https://www.ticketmaster.se/event/arja-in-concert-biljetter/1539688779",
-   "description": "Music · När Arja Saijonmaa börjar sjunga blir det tyst i salongen. Så har det varit i över 50 år, och så är det fortfarande. Med en karriär som sträcker sig över mer än fem decennier fortsätter Arja Saijonmaa att överraska och förnya sig. Nu presenterar hon ARJA, en ny konsertföreställning där hennes musikalitet, personlighet och rika artistliv får ta plats i ett nytt och exklusivt format. Det är ",
    "lat": 58.41323,
    "lon": 15.61516
   },
